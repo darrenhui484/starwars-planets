@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    // background-color: hsl(0, 0, 10);
 }
 
 .home-loader {
@@ -23,10 +24,20 @@
 .home-pagination-controls-container {
     display: flex;
     flex-direction: column;
+    margin-top: 20px;
 }
 
 .home-attribute-dropdown {
     margin: 10px 0px 10px 0px;
+}
+
+.home-bar-chart {
+    width: 100%;
+    margin: 20px 50px 20px 50px;
+    border-bottom: 2px solid white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 button {

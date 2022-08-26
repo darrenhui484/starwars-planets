@@ -5,11 +5,9 @@ import BarChart from "../../components/BarChart";
 import Loader from "../../components/Loader/Loader";
 import TableInfo from "../../components/TableInfo/TableInfo";
 import IPlanet from "../../models/IPlanet";
-import { PLANET_ATTRIBUTES, STAR_WARS_URL } from '../../constants/constants';
+import { ATTRIBUTE_TITLE_MAPPING, PLANET_ATTRIBUTES, STAR_WARS_URL } from '../../constants/constants';
 import Dropdown from '../../components/Dropdown/Dropdown';
 import IPaginatedResult from '../../models/IPaginatedResult';
-
-
 
 export default function Home() {
     const [page, setPage] = useState(1);
@@ -48,8 +46,16 @@ export default function Home() {
         }
         if (filteredData != null) {
             return <>
-                <BarChart planets={filteredData} attribute={selectedAttribute} />
-                <TableInfo data={filteredData} />
+                <div className={'home-bar-chart'}>
+                    <BarChart planets={filteredData} attribute={selectedAttribute} />
+                    <div className={'home-attribute-dropdown'}>
+                        <Dropdown items={PLANET_ATTRIBUTES} value={selectedAttribute} onChange={(event) => setSelectedAttribute(event.target.value as keyof IPlanet)} />
+                    </div>
+                </div>
+
+                <h2>Planet Information</h2>
+                <TableInfo data={filteredData} nameMapping={ATTRIBUTE_TITLE_MAPPING} />
+                {displayPaginationControls()}
             </>
         }
         return <></>
@@ -61,7 +67,7 @@ export default function Home() {
             <div className='home-pagination-controls-container'>
                 <div className='home-pagination-controls'>
                     <button onClick={() => handlePageChange(-1)} disabled={data.previous == null || page <= 0}>PREV</button>
-                    <div className={'home-page-number'}>{page}</div>
+                    <div className={'home-page-number'}>{`${page}/${data.count / data.results.length}`}</div>
                     <button onClick={() => handlePageChange(1)} disabled={data.next == null}>NEXT</button>
                 </div>
             </div>
@@ -77,10 +83,6 @@ export default function Home() {
     return (
         <div className={'home'}>
             {display()}
-            <div className={'home-attribute-dropdown'}>
-                <Dropdown items={PLANET_ATTRIBUTES} value={selectedAttribute} onChange={(event) => setSelectedAttribute(event.target.value as keyof IPlanet)} />
-            </div>
-            {displayPaginationControls()}
             <div className={'home-loader'}>
                 {isFetching || isLoading ? <Loader /> : null}
             </div>
