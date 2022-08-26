@@ -1,0 +1,40 @@
+@keyframes loading {
+    0% {
+        transform: translateX(0px);
+        opacity: 100%;
+    }
+
+    25% {
+        transform: translateX(40px);
+        opacity: 25%;
+    }
+
+    50% {
+        transform: translateX(50px);
+        opacity: 100%;
+    }
+
+    75% {
+        transform: translateX(10px);
+        opacity: 25%;
+    }
+
+    100% {
+        transform: translateX(0px);
+        opacity: 100%;
+    }
+}
+
+.loader {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: red;
+    animation: loading 1s linear infinite;
+
+    // position: absolute;
+    // top: 1%;
+    // left: 50%;
+    // transform: translateX(-50%);
+
+}
